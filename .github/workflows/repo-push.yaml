@@ -28,4 +28,5 @@ jobs:
                   pull: true
                   push: true
                   tags: |
-                      ghcr.io/codize-dev/piston/repo-builder
+                      ghcr.io/codize-dev/piston/repo-builder:latest
+                      ghcr.io/codize-dev/piston/repo-builder:${{ github.sha }}
