@@ -1,4 +1,5 @@
 name: Publish API image
+
 on:
     workflow_dispatch:
     push:
@@ -7,6 +8,10 @@ on:
             - v3
         paths:
             - api/**
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: false
 
 jobs:
     push_to_registry:
