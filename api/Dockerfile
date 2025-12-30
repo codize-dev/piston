@@ -8,7 +8,7 @@ RUN apt-get update && \
     make -j$(nproc) install && \
     rm -rf /tmp/*
 
-FROM node:20-bookworm-slim
+FROM node:20.19.6-bookworm-slim@sha256:a270640213033657548b7ed57852709a0d2ee3b277f902f912367216aa8e9520
 
 ENV DEBIAN_FRONTEND=noninteractive
 
