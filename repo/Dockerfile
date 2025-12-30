@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM debian:bookworm-slim@sha256:d5d3f9c23164ea16f31852f95bd5959aad1c5e854332fe00f7b3a20fcc9f635c
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y unzip autoconf build-essential libssl-dev \
         pkg-config zlib1g-dev libargon2-dev libsodium-dev libcurl4-openssl-dev \
