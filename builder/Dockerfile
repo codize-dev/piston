@@ -1,2 +1,2 @@
-FROM ghcr.io/engineer-man/piston:latest
+FROM ghcr.io/codize-dev/piston:latest
 ADD . /piston/packages/

@@ -14,12 +14,6 @@ jobs:
         steps:
             - name: Check out repo
               uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
-            - name: Login to GitHub registry
-              uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc # v2.2.0
-              with:
-                  username: ${{ github.actor }}
-                  password: ${{ secrets.GITHUB_TOKEN }}
-                  registry: docker.pkg.github.com
             - name: Login to ghcr.io
               uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc # v2.2.0
               with:
@@ -34,5 +28,4 @@ jobs:
                   push: true
                   pull: true
                   tags: |
-                      docker.pkg.github.com/engineer-man/piston/api
-                      ghcr.io/engineer-man/piston
+                      ghcr.io/codize-dev/piston

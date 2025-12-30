@@ -38,12 +38,12 @@ jobs:
             - name: Checkout
               uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
 
-            - name: Login to GitHub registry
+            - name: Login to ghcr.io
               uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc # v2.2.0
               with:
                   username: ${{ github.actor }}
                   password: ${{ secrets.GITHUB_TOKEN }}
-                  registry: docker.pkg.github.com
+                  registry: ghcr.io
 
             - name: Get list of changed files
               uses: lots0logs/gh-action-get-changed-files@af14147b3aba94b0ced11732399a2ab748097de9 # 2.1.4
@@ -54,7 +54,7 @@ jobs:
               run: |
                   PACKAGES=$(jq '.[]' -r ${HOME}/files*.json | awk -F/ '$1~/packages/ && $2 && $3{ print $2 "-" $3 }' | sort -u)
                   echo "Packages: $PACKAGES"
-                  docker pull docker.pkg.github.com/engineer-man/piston/repo-builder:latest
+                  docker pull ghcr.io/codize-dev/piston/repo-builder:latest
                   docker build -t repo-builder repo
                   docker run -v "${{ github.workspace }}:/piston" repo-builder --no-server $PACKAGES
                   ls -la packages
@@ -79,18 +79,18 @@ jobs:
             - name: Relocate downloaded packages
               run: mv *.pkg.tar.gz packages/
 
-            - name: Login to GitHub registry
+            - name: Login to ghcr.io
               uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc # v2.2.0
               with:
                   username: ${{ github.actor }}
                   password: ${{ secrets.GITHUB_TOKEN }}
-                  registry: docker.pkg.github.com
+                  registry: ghcr.io
 
             - name: Run tests
               run: |
                   ls -la
-                  docker run -v $(pwd)'/repo:/piston/repo' -v $(pwd)'/packages:/piston/packages' -d --name repo docker.pkg.github.com/engineer-man/piston/repo-builder --no-build
-                  docker pull docker.pkg.github.com/engineer-man/piston/api
+                  docker run -v $(pwd)'/repo:/piston/repo' -v $(pwd)'/packages:/piston/packages' -d --name repo ghcr.io/codize-dev/piston/repo-builder --no-build
+                  docker pull ghcr.io/codize-dev/piston
                   docker build -t piston-api api
                   docker run --privileged --network container:repo -v $(pwd)'/data:/piston' -e PISTON_LOG_LEVEL=DEBUG -e 'PISTON_REPO_URL=http://localhost:8000/index' -d --name api piston-api
                   echo Waiting for API to start..
