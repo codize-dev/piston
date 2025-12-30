@@ -46,7 +46,7 @@ jobs:
                   ls -la packages
 
             - name: Upload Packages
-              uses: svenstaro/upload-release-action@7f93926b6eec9cfdde9a8dfac51a4e23370b7c8e # 2.11.3
+              uses: svenstaro/upload-release-action@6b7fa9f267e90b50a19fef07b3596790bb941741 # 2.11.3
               with:
                   repo_token: ${{ secrets.GITHUB_TOKEN }}
                   file: packages/*.pkg.tar.gz
@@ -78,7 +78,7 @@ jobs:
                     echo "Adding package $PKGNAME-$PKGVERSION"
                   done
             - name: Upload index
-              uses: svenstaro/upload-release-action@7f93926b6eec9cfdde9a8dfac51a4e23370b7c8e # 2.11.3
+              uses: svenstaro/upload-release-action@6b7fa9f267e90b50a19fef07b3596790bb941741 # 2.11.3
               with:
                   repo_token: ${{ secrets.GITHUB_TOKEN }}
                   file: index
