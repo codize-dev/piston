@@ -15,9 +15,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
             - name: Get list of changed files
-              uses: lots0logs/gh-action-get-changed-files@2.1.4
+              uses: lots0logs/gh-action-get-changed-files@af14147b3aba94b0ced11732399a2ab748097de9 # 2.1.4
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -36,17 +36,17 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
 
             - name: Login to GitHub registry
-              uses: docker/login-action@v2
+              uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc # v2.2.0
               with:
                   username: ${{ github.actor }}
                   password: ${{ secrets.GITHUB_TOKEN }}
                   registry: docker.pkg.github.com
 
             - name: Get list of changed files
-              uses: lots0logs/gh-action-get-changed-files@2.1.4
+              uses: lots0logs/gh-action-get-changed-files@af14147b3aba94b0ced11732399a2ab748097de9 # 2.1.4
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -60,7 +60,7 @@ jobs:
                   ls -la packages
 
             - name: Upload package as artifact
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3.2.1
               with:
                   name: packages
                   path: packages/*.pkg.tar.gz
@@ -70,9 +70,9 @@ jobs:
         runs-on: ubuntu-latest
         needs: build-pkg
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
 
-            - uses: actions/download-artifact@v3
+            - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
               with:
                   name: packages
 
@@ -80,7 +80,7 @@ jobs:
               run: mv *.pkg.tar.gz packages/
 
             - name: Login to GitHub registry
-              uses: docker/login-action@v2
+              uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc # v2.2.0
               with:
                   username: ${{ github.actor }}
                   password: ${{ secrets.GITHUB_TOKEN }}

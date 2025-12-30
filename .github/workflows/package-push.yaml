@@ -14,17 +14,17 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
 
             - name: Login to GitHub registry
-              uses: docker/login-action@v2
+              uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc # v2.2.0
               with:
                   username: ${{ github.actor }}
                   password: ${{ secrets.GITHUB_TOKEN }}
                   registry: docker.pkg.github.com
 
             - name: Get list of changed files
-              uses: lots0logs/gh-action-get-changed-files@2.1.4
+              uses: lots0logs/gh-action-get-changed-files@af14147b3aba94b0ced11732399a2ab748097de9 # 2.1.4
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -38,7 +38,7 @@ jobs:
                   ls -la packages
 
             - name: Upload Packages
-              uses: svenstaro/upload-release-action@v2
+              uses: svenstaro/upload-release-action@6b7fa9f267e90b50a19fef07b3596790bb941741 # latest
               with:
                   repo_token: ${{ secrets.GITHUB_TOKEN }}
                   file: packages/*.pkg.tar.gz
@@ -68,7 +68,7 @@ jobs:
                     echo "Adding package $PKGNAME-$PKGVERSION"
                   done
             - name: Upload index
-              uses: svenstaro/upload-release-action@v2
+              uses: svenstaro/upload-release-action@6b7fa9f267e90b50a19fef07b3596790bb941741 # latest
               with:
                   repo_token: ${{ secrets.GITHUB_TOKEN }}
                   file: index
