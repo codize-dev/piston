@@ -130,6 +130,35 @@ Prettier 設定 (`.prettierrc.yaml`):
 - タブ幅: 4
 - Arrow関数の括弧: 省略
 
+### コミットメッセージ
+
+- **Conventional Commits は使用しない** (`fix:`, `feat:` などのプレフィックスは不要)
+- 変更内容を簡潔に説明する通常の形式で記述
+
+## GitHub Actions
+
+### permissions 設定
+
+ghcr.io や GitHub Releases を使用するワークフローでは、明示的な permissions 設定が必要:
+
+```yaml
+jobs:
+    job_name:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write    # リリースへのアップロード時
+            packages: write    # ghcr.io へのプッシュ時
+            packages: read     # ghcr.io からのプル時
+```
+
+### Docker イメージワークフロー
+
+| ワークフロー | 用途 | トリガーパス |
+|-------------|------|-------------|
+| `api-push.yaml` | API イメージ | `api/**` |
+| `repo-push.yaml` | Repo Builder イメージ | `repo/**` |
+| `package-push.yaml` | パッケージビルド | `packages/**` |
+
 ## 前提条件
 
 - Docker & Docker Compose
