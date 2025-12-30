@@ -13,8 +13,7 @@
         "nocamel": "HexF/nocamel#patch-1",
         "node-fetch": "^2.6.1",
         "semver": "^7.3.4",
-        "uuid": "^8.3.2",
-        "waitpid": "git+https://github.com/HexF/node-waitpid.git"
+        "uuid": "^8.3.2"
     },
     "license": "MIT"
 }
