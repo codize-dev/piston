@@ -11,6 +11,9 @@ on:
 jobs:
     push_to_registry:
         runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            packages: write
         name: Build and Push Docker image to Github Packages
         steps:
             - name: Check out repo
