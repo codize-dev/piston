@@ -1,6 +1,7 @@
 name: 'Package Pushed'
 
 on:
+    workflow_dispatch:
     push:
         branches:
             - master
