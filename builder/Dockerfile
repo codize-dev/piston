@@ -1,2 +1,2 @@
-FROM ghcr.io/codize-dev/piston:latest@sha256:5bb0647a8757846c8d0b59103d7b1a1da077ff24882b96251336af927c4e2755
+FROM ghcr.io/codize-dev/piston:latest@sha256:efa992bae83e1200ea0ade882c4611f14098b896f5783119b47dd80c69ef6dec
 ADD . /piston/packages/
