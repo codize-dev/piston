@@ -40,7 +40,7 @@ jobs:
               run: |
                   PACKAGES=$(jq '.[]' -r ${HOME}/files*.json | awk -F/ '$1~/packages/ && $2 && $3{ print $2 "-" $3 }' | sort -u)
                   echo "Packages: $PACKAGES"
-                  docker pull ghcr.io/codize-dev/piston/repo-builder:latest
+                  docker pull ghcr.io/codize-dev/piston/repo-builder:781f4aed6ebfab29d07ce4b0922dfd9247e66d5f@sha256:0c75faa302f1e34247fd19dc9b1b2a162257b1c56c52a871403afe00fe4b0e75
                   docker build -t repo-builder repo
                   docker run -v "${{ github.workspace }}:/piston" repo-builder --no-server $PACKAGES
                   ls -la packages
