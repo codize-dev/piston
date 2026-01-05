@@ -12,7 +12,7 @@
         "logplease": "1.2.15",
         "nocamel": "HexF/nocamel#patch-1",
         "node-fetch": "2.7.0",
-        "semver": "7.3.5",
+        "semver": "7.7.3",
         "uuid": "8.3.2"
     },
     "license": "MIT"
