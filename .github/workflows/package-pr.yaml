@@ -120,6 +120,14 @@ jobs:
                     PKG_NAME=$(awk -F- '{ print $1 }' <<< $package)
                     PKG_VERSION=$(awk -F- '{ print $2 }' <<< $package)
 
+                    # Read limit_overrides from metadata.json
+                    RUN_TIMEOUT=$(jq -r '.limit_overrides.run_timeout // empty' packages/$PKG_PATH/metadata.json)
+                    RUN_TIMEOUT_FLAG=""
+                    if [ -n "$RUN_TIMEOUT" ]; then
+                      RUN_TIMEOUT_FLAG="-r $RUN_TIMEOUT"
+                      echo "Using run_timeout: $RUN_TIMEOUT"
+                    fi
+
                     echo "Installing..."
                     docker run --network container:api appropriate/curl -sXPOST http://localhost:2000/api/v2/packages -H "Content-Type: application/json" -d "{\"language\":\"$PKG_NAME\",\"version\":\"$PKG_VERSION\"}"
 
@@ -130,7 +138,7 @@ jobs:
                     do
                       TEST_RUNTIME=$(awk -F. '{print $2}' <<< $(basename $tscript))
                       echo Running $tscript with runtime=$TEST_RUNTIME
-                      docker run --network container:api -v "$PWD/cli:/app" -v "$PWD/$(dirname $tscript):/pkg" node:15 /app/index.js run $TEST_RUNTIME -l $PKG_VERSION -r 30000 /pkg/$(basename $tscript) > test_output
+                      docker run --network container:api -v "$PWD/cli:/app" -v "$PWD/$(dirname $tscript):/pkg" node:15 /app/index.js run $TEST_RUNTIME -l $PKG_VERSION $RUN_TIMEOUT_FLAG /pkg/$(basename $tscript) > test_output
                       cat test_output
                       grep "OK" test_output
                     done
