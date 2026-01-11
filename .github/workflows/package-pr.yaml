@@ -120,13 +120,6 @@ jobs:
                     PKG_NAME=$(awk -F- '{ print $1 }' <<< $package)
                     PKG_VERSION=$(awk -F- '{ print $2 }' <<< $package)
 
-                    echo "=== DEBUG: pkg-info.json content ==="
-                    cat packages/$PKG_PATH/pkg-info.json || echo "pkg-info.json not found in packages/$PKG_PATH"
-                    echo "=== DEBUG: Checking inside tar.gz ==="
-                    tar -tzf packages/$package.pkg.tar.gz | grep -E "(pkg-info|metadata)" || true
-                    tar -xzf packages/$package.pkg.tar.gz -O ./pkg-info.json 2>/dev/null || echo "Could not extract pkg-info.json from tar"
-                    echo "=== END DEBUG ==="
-
                     echo "Installing..."
                     docker run --network container:api appropriate/curl -sXPOST http://localhost:2000/api/v2/packages -H "Content-Type: application/json" -d "{\"language\":\"$PKG_NAME\",\"version\":\"$PKG_VERSION\"}"
 
