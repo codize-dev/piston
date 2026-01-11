@@ -3,7 +3,8 @@
     "version": "1.25.5",
     "aliases": ["go", "golang"],
     "limit_overrides": {
-        "run_timeout": 10000,
-        "run_cpu_time": 10000
+        "run_timeout": 30000,
+        "run_cpu_time": 30000,
+        "max_process_count": 256
     }
 }
