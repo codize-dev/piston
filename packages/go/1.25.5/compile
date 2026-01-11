@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+mv $1 $1.go
+GOCACHE=$PWD go build -o binary *.go
+chmod +x binary
