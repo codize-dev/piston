@@ -121,6 +121,13 @@ jobs:
                     PKG_VERSION=$(awk -F- '{ print $2 }' <<< $package)
 
                     # Read limit_overrides from metadata.json
+                    COMPILE_TIMEOUT=$(jq -r '.limit_overrides.compile_timeout // empty' packages/$PKG_PATH/metadata.json)
+                    COMPILE_TIMEOUT_FLAG=""
+                    if [ -n "$COMPILE_TIMEOUT" ]; then
+                      COMPILE_TIMEOUT_FLAG="-c $COMPILE_TIMEOUT"
+                      echo "Using compile_timeout: $COMPILE_TIMEOUT"
+                    fi
+
                     RUN_TIMEOUT=$(jq -r '.limit_overrides.run_timeout // empty' packages/$PKG_PATH/metadata.json)
                     RUN_TIMEOUT_FLAG=""
                     if [ -n "$RUN_TIMEOUT" ]; then
@@ -138,7 +145,7 @@ jobs:
                     do
                       TEST_RUNTIME=$(awk -F. '{print $2}' <<< $(basename $tscript))
                       echo Running $tscript with runtime=$TEST_RUNTIME
-                      docker run --network container:api -v "$PWD/cli:/app" -v "$PWD/$(dirname $tscript):/pkg" node:15 /app/index.js run $TEST_RUNTIME -l $PKG_VERSION $RUN_TIMEOUT_FLAG /pkg/$(basename $tscript) > test_output
+                      docker run --network container:api -v "$PWD/cli:/app" -v "$PWD/$(dirname $tscript):/pkg" node:15 /app/index.js run $TEST_RUNTIME -l $PKG_VERSION $COMPILE_TIMEOUT_FLAG $RUN_TIMEOUT_FLAG /pkg/$(basename $tscript) > test_output
                       cat test_output
                       grep "OK" test_output
                     done
