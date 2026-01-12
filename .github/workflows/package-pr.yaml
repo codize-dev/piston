@@ -21,7 +21,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
             - name: Get list of changed files
-              uses: lots0logs/gh-action-get-changed-files@af14147b3aba94b0ced11732399a2ab748097de9 # 2.1.4
+              uses: lots0logs/gh-action-get-changed-files@6cb5164a823dbf3318b7c8032a333b4b7ed425b2 # 2.2.2
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -50,7 +50,7 @@ jobs:
                   registry: ghcr.io
 
             - name: Get list of changed files
-              uses: lots0logs/gh-action-get-changed-files@af14147b3aba94b0ced11732399a2ab748097de9 # 2.1.4
+              uses: lots0logs/gh-action-get-changed-files@6cb5164a823dbf3318b7c8032a333b4b7ed425b2 # 2.2.2
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
 
