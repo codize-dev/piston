@@ -1,4 +1,4 @@
-FROM buildpack-deps:bookworm@sha256:95d2832840e8dbc40c52141fa59de6b27a2f7cf44a39caddb5ff83abeac31883 AS isolate
+FROM buildpack-deps:bookworm@sha256:c35adcb1dee20da46ca42bb16d7df217ea188f6d68b7a74dc51ba0cb7f561040 AS isolate
 RUN apt-get update && \
     apt-get install -y --no-install-recommends git libcap-dev && \
     rm -rf /var/lib/apt/lists/* && \
