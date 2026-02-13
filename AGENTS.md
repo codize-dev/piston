@@ -1,45 +1,45 @@
 # Repository Guideline
 
-## プロジェクト概要
+## Project Overview
 
-Piston は、90以上のプログラミング言語をサポートする高性能・高セキュリティなコード実行エンジン。API サーバー経由でコードを安全に実行でき、Linux の Isolate (namespaces + chroot + cgroup) を使用したサンドボックス環境で動作する。
+Piston is a high-performance, high-security code execution engine supporting 90+ programming languages. It enables safe code execution via an API server and operates in a sandboxed environment using Linux Isolate (namespaces + chroot + cgroup).
 
-## 開発コマンド
+## Development Commands
 
-### 環境の起動・停止
-
-```bash
-./piston select dev          # 開発環境を選択 (初回のみ)
-./piston start               # 起動
-./piston stop                # 停止
-./piston restart             # 再起動
-./piston logs                # ログ表示
-./piston bash                # コンテナシェルを開く
-./piston rebuild             # ビルドして再起動
-```
-
-### コード整形 (Lint)
+### Starting and Stopping the Environment
 
 ```bash
-./piston lint                # Prettier で全ファイルをフォーマット
-npx prettier --write <path>  # 特定ファイルのみフォーマット
+./piston select dev          # Select development environment (first time only)
+./piston start               # Start
+./piston stop                # Stop
+./piston restart             # Restart
+./piston logs                # Show logs
+./piston bash                # Open container shell
+./piston rebuild             # Build and restart
 ```
 
-### パッケージ管理
+### Code Formatting (Lint)
 
 ```bash
-./piston list-pkgs                    # 利用可能なパッケージ一覧
-./piston build-pkg <pkg> <ver>        # パッケージをビルド
-./piston clean-pkgs                   # ビルド成果物をクリーン
+./piston lint                # Format all files with Prettier
+npx prettier --write <path>  # Format specific files only
 ```
 
-### CLI のセットアップ
+### Package Management
+
+```bash
+./piston list-pkgs                    # List available packages
+./piston build-pkg <pkg> <ver>        # Build package
+./piston clean-pkgs                   # Clean build artifacts
+```
+
+### CLI Setup
 
 ```bash
 cd cli && npm i && cd -
 ```
 
-## アーキテクチャ
+## Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -57,108 +57,108 @@ cd cli && npm i && cd -
 ├─────────────────────────────────────────────────────────────┤
 │  packages/                                                   │
 │  └─ <lang>/<version>/                                        │
-│      ├─ metadata.json  (言語情報、エイリアス)                │
-│      ├─ build.sh       (ビルドスクリプト)                    │
-│      ├─ run            (実行スクリプト)                      │
-│      └─ environment    (環境変数)                            │
+│      ├─ metadata.json  (language info, aliases)              │
+│      ├─ build.sh       (build script)                        │
+│      ├─ run            (execution script)                    │
+│      └─ environment    (environment variables)               │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### 主要コンポーネント
+### Main Components
 
-| ファイル | 役割 |
+| File | Role |
 |---------|------|
-| `api/src/index.js` | Express サーバー初期化 |
-| `api/src/api/v2.js` | API エンドポイント定義 |
-| `api/src/job.js` | ジョブ実行管理 (READY → PRIMED → EXECUTED) |
-| `api/src/runtime.js` | 言語ランタイム管理 |
-| `api/src/package.js` | パッケージのインストール・管理 |
-| `api/src/config.js` | 環境変数による設定管理 |
+| `api/src/index.js` | Express server initialization |
+| `api/src/api/v2.js` | API endpoint definitions |
+| `api/src/job.js` | Job execution management (READY → PRIMED → EXECUTED) |
+| `api/src/runtime.js` | Language runtime management |
+| `api/src/package.js` | Package installation and management |
+| `api/src/config.js` | Configuration management via environment variables |
 
-### API エンドポイント
+### API Endpoints
 
-| メソッド | パス | 目的 |
+| Method | Path | Purpose |
 |---------|------|------|
-| GET | `/api/v2/runtimes` | インストール済み言語一覧 |
-| POST | `/api/v2/execute` | コード実行 |
-| WebSocket | `/api/v2/connect` | インタラクティブ実行 |
+| GET | `/api/v2/runtimes` | List installed languages |
+| POST | `/api/v2/execute` | Execute code |
+| WebSocket | `/api/v2/connect` | Interactive execution |
 
-## 設定 (環境変数)
+## Configuration (Environment Variables)
 
-主要な環境変数 (`PISTON_` プレフィックス):
+Main environment variables (`PISTON_` prefix):
 
-| 変数 | デフォルト | 説明 |
+| Variable | Default | Description |
 |-----|---------|------|
-| `PISTON_LOG_LEVEL` | INFO | ログレベル |
-| `PISTON_BIND_ADDRESS` | 0.0.0.0:2000 | API バインドアドレス |
-| `PISTON_DISABLE_NETWORKING` | true | ネットワーク無効化 |
-| `PISTON_COMPILE_TIMEOUT` | 10000 | コンパイルタイムアウト (ms) |
-| `PISTON_RUN_TIMEOUT` | 3000 | 実行タイムアウト (ms) |
-| `PISTON_MAX_PROCESS_COUNT` | 64 | 最大プロセス数 |
-| `PISTON_OUTPUT_MAX_SIZE` | 1024 | 出力最大サイズ |
+| `PISTON_LOG_LEVEL` | INFO | Log level |
+| `PISTON_BIND_ADDRESS` | 0.0.0.0:2000 | API bind address |
+| `PISTON_DISABLE_NETWORKING` | true | Disable networking |
+| `PISTON_COMPILE_TIMEOUT` | 10000 | Compile timeout (ms) |
+| `PISTON_RUN_TIMEOUT` | 3000 | Execution timeout (ms) |
+| `PISTON_MAX_PROCESS_COUNT` | 64 | Maximum process count |
+| `PISTON_OUTPUT_MAX_SIZE` | 1024 | Maximum output size |
 
-詳細は `docs/configuration.md` を参照。
+See `docs/configuration.md` for details.
 
-## テスト
+## Testing
 
-セキュリティテストは `/tests/` にある:
+Security tests are located in `/tests/`:
 
 ```bash
-python3 tests/fork.py              # フォーク爆弾テスト
-python3 tests/fallocate.py         # ディスク満杯攻撃テスト
-python3 tests/network.py           # ネットワークアクセステスト
+python3 tests/fork.py              # Fork bomb test
+python3 tests/fallocate.py         # Disk fill attack test
+python3 tests/network.py           # Network access test
 ```
 
-パッケージのテストは GitHub Actions (`package-pr.yaml`) で自動実行される。
+Package tests are automatically executed via GitHub Actions (`package-pr.yaml`).
 
-## 言語パッケージの追加
+## Adding Language Packages
 
-1. `packages/<lang>/<version>/` ディレクトリを作成
-2. 必須ファイルを作成:
-   - `metadata.json` - 言語名、バージョン、エイリアス
-   - `build.sh` - ビルドスクリプト
-   - `run` - 実行スクリプト
-3. `./piston build-pkg <lang> <version>` でビルド
-4. README.md にバッジを追加
+1. Create `packages/<lang>/<version>/` directory
+2. Create required files:
+   - `metadata.json` - Language name, version, aliases
+   - `build.sh` - Build script
+   - `run` - Execution script
+3. Build with `./piston build-pkg <lang> <version>`
+4. Add badge to README.md
 
-## コードスタイル
+## Code Style
 
-Prettier 設定 (`.prettierrc.yaml`):
-- シングルクォート使用
-- タブ幅: 4
-- Arrow関数の括弧: 省略
+Prettier configuration (`.prettierrc.yaml`):
+- Use single quotes
+- Tab width: 4
+- Omit arrow function parentheses
 
-### コミットメッセージ
+### Commit Messages
 
-- **Conventional Commits は使用しない** (`fix:`, `feat:` などのプレフィックスは不要)
-- 変更内容を簡潔に説明する通常の形式で記述
+- **Do not use Conventional Commits** (no need for prefixes like `fix:`, `feat:`)
+- Write in normal format with concise description of changes
 
 ## GitHub Actions
 
-### permissions 設定
+### permissions Configuration
 
-ghcr.io や GitHub Releases を使用するワークフローでは、明示的な permissions 設定が必要:
+Workflows using ghcr.io or GitHub Releases require explicit permissions configuration:
 
 ```yaml
 jobs:
     job_name:
         runs-on: ubuntu-latest
         permissions:
-            contents: write    # リリースへのアップロード時
-            packages: write    # ghcr.io へのプッシュ時
-            packages: read     # ghcr.io からのプル時
+            contents: write    # When uploading to releases
+            packages: write    # When pushing to ghcr.io
+            packages: read     # When pulling from ghcr.io
 ```
 
-### Docker イメージワークフロー
+### Docker Image Workflows
 
-| ワークフロー | 用途 | トリガーパス |
+| Workflow | Purpose | Trigger Path |
 |-------------|------|-------------|
-| `api-push.yaml` | API イメージ | `api/**` |
-| `repo-push.yaml` | Repo Builder イメージ | `repo/**` |
-| `package-push.yaml` | パッケージビルド | `packages/**` |
+| `api-push.yaml` | API image | `api/**` |
+| `repo-push.yaml` | Repo Builder image | `repo/**` |
+| `package-push.yaml` | Package build | `packages/**` |
 
-## 前提条件
+## Prerequisites
 
 - Docker & Docker Compose
-- cgroup v2 有効化 (cgroup v1 は無効化)
-- Node.js >= 15 (CLI 開発時)
+- cgroup v2 enabled (cgroup v1 disabled)
+- Node.js >= 15 (for CLI development)
