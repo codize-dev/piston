@@ -2,7 +2,7 @@ version: '3.2'
 
 services:
     api:
-        image: ghcr.io/codize-dev/piston@sha256:bb9ae8af898f59dbb0cf675e761b485ae643e2968ea1642dc559002c9436e2f3
+        image: ghcr.io/codize-dev/piston@sha256:c8a33a56fe24fa23145f14de3013a96656cbd105d7b0e19655f526ec03d6151e
         container_name: piston_api
         restart: always
         privileged: true
