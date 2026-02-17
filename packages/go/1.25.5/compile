@@ -2,5 +2,5 @@
 
 mv $1 $1.go
 export GOCACHEPROG="/piston/packages/go/1.25.5/cacheprog /piston/packages/go/1.25.5/cache"
-CGO_ENABLED=0 go build -o binary *.go
+CGO_ENABLED=0 go build -o binary *.go && \
 chmod +x binary
