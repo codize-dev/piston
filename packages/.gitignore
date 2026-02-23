@@ -9,3 +9,4 @@
 
 !go/**/cacheprog.go
 !go/**/go.mod
+!go/**/go.sum

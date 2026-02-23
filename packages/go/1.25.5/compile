@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 cp /piston/packages/go/1.25.5/go.mod ./go.mod
+cp /piston/packages/go/1.25.5/go.sum ./go.sum
+
 export GOCACHEPROG="/piston/packages/go/1.25.5/cacheprog /piston/packages/go/1.25.5/cache"
-CGO_ENABLED=0 go build -o binary *.go && \
+CGO_ENABLED=0 go build -o binary *.go
 chmod +x binary
