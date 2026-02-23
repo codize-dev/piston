@@ -6,4 +6,6 @@
 !*/*/run
 !*/*/compile
 !*/*/test.*
-!*/*/cacheprog.go
+
+!go/**/cacheprog.go
+!go/**/go.mod
