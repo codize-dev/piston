@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-# Put instructions to run the runtime
-
-CODE=$1.js
+CODE="${1%.ts}.js"
 shift
 
-node $CODE "$@"
+node "$CODE" "$@"
