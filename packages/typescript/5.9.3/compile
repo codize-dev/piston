@@ -2,7 +2,8 @@
 
 SOURCE_NODE_MODULES_DIR="/piston/packages/typescript/5.9.3/lib/node_modules"
 TARGET_NODE_MODULES_DIR="node_modules"
-
 ln -s "$SOURCE_NODE_MODULES_DIR" "$TARGET_NODE_MODULES_DIR"
+
+cp /piston/packages/typescript/5.9.3/tsconfig.json ./tsconfig.json
 
 tsc
