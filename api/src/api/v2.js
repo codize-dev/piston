@@ -245,11 +245,6 @@ router.post('/execute', async (req, res) => {
         const box = await job.prime();
 
         let result = await job.execute(box);
-        // Backward compatibility when the run stage is not started
-        if (result.run === undefined) {
-            result.run = result.compile;
-        }
-
         return res.status(200).send(result);
     } catch (error) {
         logger.error(`Error executing job: ${job.uuid}:\n${error}`);
