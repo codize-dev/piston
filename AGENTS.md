@@ -122,6 +122,23 @@ codize run --json tests/rlimit_override.py     # Resource limit override test
 codize run --json tests/signal_resistance.py   # Signal resistance test
 codize run --json tests/readonly_write.py      # Read-only filesystem write test
 codize run --json tests/proc_info_leak.py      # /proc information leakage test
+codize run --json tests/unix_socket.py         # Unix domain socket cross-sandbox test
+codize run --json tests/sysv_shm.py            # SysV shared memory cross-sandbox test
+codize run --json tests/sysv_msg.py            # SysV message queue and semaphore cross-sandbox test
+codize run --json tests/ptrace_attach.py       # ptrace attach process manipulation test
+codize run --json tests/mount_escape.py        # mount syscall filesystem escape test
+codize run --json tests/chroot_escape.py       # Double chroot escape technique test
+codize run --json tests/namespace_escape.py    # unshare namespace escape test
+codize run --json tests/thread_bomb.py         # Thread bomb resource exhaustion test
+codize run --json tests/fd_exhaustion.py       # File descriptor exhaustion test
+codize run --json tests/pipe_exhaustion.py     # Pipe and kernel buffer exhaustion test
+codize run --json tests/core_dump.py           # Core dump information leak test
+codize run --json tests/sysfs_info.py          # /sys filesystem information leak test
+codize run --json tests/timing_side_channel.py # CPU cache timing side channel test
+codize run --json tests/kernel_module.py       # Kernel module loading test
+codize run --json tests/raw_syscall.py         # Raw restricted syscall invocation test
+codize run --json tests/cross_process_kill.py  # Cross-process signal delivery test
+codize run --json tests/raw_socket.py          # Raw and packet socket creation test
 ```
 
 Package tests are automatically executed via GitHub Actions (`package-pr.yaml`).
