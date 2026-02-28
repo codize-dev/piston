@@ -11,9 +11,7 @@ import os
 
 directories = [
     "/dev/shm",
-    "/run/lock",
     "/tmp",
-    "/var/tmp"
 ]
 
 for dir in directories:
