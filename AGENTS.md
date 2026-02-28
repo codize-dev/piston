@@ -104,9 +104,9 @@ See `docs/configuration.md` for details.
 Security tests are located in `/tests/`:
 
 ```bash
-python3 tests/fork.py              # Fork bomb test
-python3 tests/fallocate.py         # Disk fill attack test
-python3 tests/network.py           # Network access test
+codize run --json tests/fork.py              # Fork bomb test
+codize run --json tests/fallocate.py         # Disk fill attack test
+codize run --json tests/network.py           # Network access test
 ```
 
 Package tests are automatically executed via GitHub Actions (`package-pr.yaml`).
