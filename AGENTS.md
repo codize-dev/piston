@@ -110,6 +110,18 @@ codize run --json tests/network.py             # Network access test
 codize run --json tests/runaway_output.py      # Infinite output test
 codize run --json tests/file_persistance.py    # File persistence test (run twice)
 codize run --json tests/mqueue_persistance.py  # Mqueue persistence test (run twice)
+codize run --json tests/memory_exhaustion.py   # Memory exhaustion test
+codize run --json tests/inode_exhaustion.py    # Inode exhaustion test
+codize run --json tests/symlink_escape.py      # Symlink escape test
+codize run --json tests/privilege_escalation.py # Privilege escalation test
+codize run --json tests/device_access.py       # Device access test
+codize run --json tests/stderr_flood.py        # Stderr flood test
+codize run --json tests/cpu_exhaustion.py      # CPU exhaustion test
+codize run --json tests/env_leakage.py         # Environment variable leakage test
+codize run --json tests/rlimit_override.py     # Resource limit override test
+codize run --json tests/signal_resistance.py   # Signal resistance test
+codize run --json tests/readonly_write.py      # Read-only filesystem write test
+codize run --json tests/proc_info_leak.py      # /proc information leakage test
 ```
 
 Package tests are automatically executed via GitHub Actions (`package-pr.yaml`).
