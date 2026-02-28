@@ -5,4 +5,4 @@ TARGET_NODE_MODULES_DIR="node_modules"
 
 ln -s "$SOURCE_NODE_MODULES_DIR" "$TARGET_NODE_MODULES_DIR"
 
-tsc *.ts
+tsc
