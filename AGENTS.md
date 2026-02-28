@@ -101,12 +101,15 @@ See `docs/configuration.md` for details.
 
 ## Testing
 
-Security tests are located in `/tests/`:
+Security tests are located in `/tests/`. Use the `test-runner` subagent (`.claude/agents/test-runner.md`) to run and verify results.
 
 ```bash
-codize run --json tests/fork.py              # Fork bomb test
-codize run --json tests/fallocate.py         # Disk fill attack test
-codize run --json tests/network.py           # Network access test
+codize run --json tests/fork.py                # Fork bomb test
+codize run --json tests/fallocate.py           # Disk fill attack test
+codize run --json tests/network.py             # Network access test
+codize run --json tests/runaway_output.py      # Infinite output test
+codize run --json tests/file_persistance.py    # File persistence test (run twice)
+codize run --json tests/mqueue_persistance.py  # Mqueue persistence test (run twice)
 ```
 
 Package tests are automatically executed via GitHub Actions (`package-pr.yaml`).
