@@ -164,6 +164,7 @@ class Job {
                 `--dir=${this.runtime.pkgdir}`,
                 `--dir=/etc:noexec`,
                 `--dir=/dev/shm:tmp`,
+                `--dir=/dev/mqueue:tmp`,
                 `--processes=${this.runtime.max_process_count}`,
                 `--open-files=${this.runtime.max_open_files}`,
                 `--fsize=${Math.floor(this.runtime.max_file_size / 1000)}`,
