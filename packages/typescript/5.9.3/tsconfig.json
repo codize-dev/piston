@@ -1,11 +1,9 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "Preserve",
-    "moduleDetection": "force",
-    "allowJs": true,
-    "moduleResolution": "bundler",
-    "verbatimModuleSyntax": true,
+    "module": "CommonJS",
+    "moduleResolution": "Node10",
+    "esModuleInterop": true,
     "skipLibCheck": true
   }
 }
